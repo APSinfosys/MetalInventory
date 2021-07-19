@@ -78,12 +78,6 @@ namespace InventoryDal.DBOprations.Masters
         {
             using (var context = new MetalInventoryEntities())
             {
-                //var result = context.Master_BankAccountMaster
-                //    .Where(x => x.Id == bnk.Id)
-                //    .FirstOrDefault();
-
-                //result.BankName = bnk.BankName;
-                //context.BankAccMasterModels.
 
                 var result = context.BankAccMasterModels.FirstOrDefault(x=> x.Id == id);
 
