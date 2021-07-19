@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MetalInventoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Master_CommonType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommonType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Master_CommonValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommonType" Type="Int32" Nullable="false" />
+    <Property Name="CommonValue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Master_Registration" Relationship="Self.FK_Master_Registration_Master_CommonValue" FromRole="Master_CommonValue" ToRole="Master_Registration" />
+  </EntityType>
+  <EntityType Name="Master_Registration">
+    <Key>
+      <PropertyRef Name="RegId" />
+    </Key>
+    <Property Name="RegId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CompanyAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyGST" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyPan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyContact" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyAlternetNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="RegType" Type="Int32" />
+    <NavigationProperty Name="Master_CommonValue" Relationship="Self.FK_Master_Registration_Master_CommonValue" FromRole="Master_Registration" ToRole="Master_CommonValue" />
+    <NavigationProperty Name="Master_UserMaster" Relationship="Self.FK_Master_UserMaster_Master_UserMaster" FromRole="Master_Registration" ToRole="Master_UserMaster" />
+    <Property Name="CompanyCode" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Master_UserMaster">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="freez" Type="Int32" Nullable="false" />
+    <Property Name="createdBy" Type="Int32" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <Property Name="updatedBy" Type="Int32" />
+    <Property Name="updatedDate" Type="DateTime" Precision="0" />
+    <Property Name="companyId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Master_Registration" Relationship="Self.FK_Master_UserMaster_Master_UserMaster" FromRole="Master_UserMaster" ToRole="Master_Registration" />
+  </EntityType>
+  <Association Name="FK_Master_Registration_Master_CommonValue">
+    <End Role="Master_CommonValue" Type="Self.Master_CommonValue" Multiplicity="0..1" />
+    <End Role="Master_Registration" Type="Self.Master_Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_CommonValue">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Master_Registration">
+        <PropertyRef Name="RegType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserMaster_Master_UserMaster">
+    <End Role="Master_Registration" Type="Self.Master_Registration" Multiplicity="1" />
+    <End Role="Master_UserMaster" Type="Self.Master_UserMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Registration">
+        <PropertyRef Name="RegId" />
+      </Principal>
+      <Dependent Role="Master_UserMaster">
+        <PropertyRef Name="companyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MetalInventoryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Master_CommonType" EntityType="Self.Master_CommonType" />
+    <EntitySet Name="Master_CommonValue" EntityType="Self.Master_CommonValue" />
+    <EntitySet Name="Master_Registration" EntityType="Self.Master_Registration" />
+    <EntitySet Name="Master_UserMaster" EntityType="Self.Master_UserMaster" />
+    <AssociationSet Name="FK_Master_Registration_Master_CommonValue" Association="Self.FK_Master_Registration_Master_CommonValue">
+      <End Role="Master_CommonValue" EntitySet="Master_CommonValue" />
+      <End Role="Master_Registration" EntitySet="Master_Registration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserMaster_Master_UserMaster" Association="Self.FK_Master_UserMaster_Master_UserMaster">
+      <End Role="Master_Registration" EntitySet="Master_Registration" />
+      <End Role="Master_UserMaster" EntitySet="Master_UserMaster" />
+    </AssociationSet>
+    <FunctionImport Name="DML_Authentication">
+      <Parameter Name="QueryNo" Mode="In" Type="Int32" />
+      <Parameter Name="strCompanyName" Mode="In" Type="String" />
+      <Parameter Name="strCompanyAddress" Mode="In" Type="String" />
+      <Parameter Name="strCompanyGST" Mode="In" Type="String" />
+      <Parameter Name="strCompanyPan" Mode="In" Type="String" />
+      <Parameter Name="strCompanyEmail" Mode="In" Type="String" />
+      <Parameter Name="strCompanyContact" Mode="In" Type="String" />
+      <Parameter Name="strCompanyAlternetNo" Mode="In" Type="String" />
+      <Parameter Name="intRegType" Mode="In" Type="Int32" />
+      <Parameter Name="strUserName" Mode="In" Type="String" />
+      <Parameter Name="strUserPassword" Mode="In" Type="String" />
+      <Parameter Name="intCompanyCode" Mode="In" Type="Int32" />
+      <Parameter Name="intCreatedBy" Mode="In" Type="Int32" />
+      <Parameter Name="dtpCreatedDate" Mode="In" Type="DateTime" />
+      <Parameter Name="strOutputMsg" Mode="InOut" Type="String" />
+      <Parameter Name="intOutputPKNo" Mode="InOut" Type="Int32" />
+      <Parameter Name="strOutputNo" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_MaxID_Number">
+      <Parameter Name="tblname" Mode="In" Type="String" />
+      <Parameter Name="fldname" Mode="In" Type="String" />
+      <Parameter Name="WhereCriteria" Mode="In" Type="String" />
+      <Parameter Name="maxID" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

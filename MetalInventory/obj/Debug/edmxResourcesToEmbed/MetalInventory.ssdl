@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MetalInventoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Master_CommonType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommonType" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Master_CommonValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommonType" Type="int" Nullable="false" />
+    <Property Name="CommonValue" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Master_Registration">
+    <Key>
+      <PropertyRef Name="RegId" />
+    </Key>
+    <Property Name="RegId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CompanyAddress" Type="nvarchar" MaxLength="500" />
+    <Property Name="CompanyGST" Type="nvarchar" MaxLength="20" />
+    <Property Name="CompanyPan" Type="nvarchar" MaxLength="20" />
+    <Property Name="CompanyEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="CompanyContact" Type="nvarchar" MaxLength="20" />
+    <Property Name="CompanyAlternetNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="RegType" Type="int" />
+    <Property Name="CompanyCode" Type="int" />
+  </EntityType>
+  <EntityType Name="Master_UserMaster">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserPassword" Type="nvarchar" MaxLength="16" Nullable="false" />
+    <Property Name="freez" Type="int" Nullable="false" />
+    <Property Name="createdBy" Type="int" />
+    <Property Name="createdDate" Type="smalldatetime" />
+    <Property Name="updatedBy" Type="int" />
+    <Property Name="updatedDate" Type="smalldatetime" />
+    <Property Name="companyId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Master_Registration_Master_CommonValue">
+    <End Role="Master_CommonValue" Type="Self.Master_CommonValue" Multiplicity="0..1" />
+    <End Role="Master_Registration" Type="Self.Master_Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_CommonValue">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Master_Registration">
+        <PropertyRef Name="RegType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_UserMaster_Master_UserMaster">
+    <End Role="Master_Registration" Type="Self.Master_Registration" Multiplicity="1" />
+    <End Role="Master_UserMaster" Type="Self.Master_UserMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_Registration">
+        <PropertyRef Name="RegId" />
+      </Principal>
+      <Dependent Role="Master_UserMaster">
+        <PropertyRef Name="companyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="DML_Authentication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="QueryNo" Type="int" Mode="In" />
+    <Parameter Name="strCompanyName" Type="nvarchar" Mode="In" />
+    <Parameter Name="strCompanyAddress" Type="nvarchar" Mode="In" />
+    <Parameter Name="strCompanyGST" Type="nvarchar" Mode="In" />
+    <Parameter Name="strCompanyPan" Type="nvarchar" Mode="In" />
+    <Parameter Name="strCompanyEmail" Type="nvarchar" Mode="In" />
+    <Parameter Name="strCompanyContact" Type="nvarchar" Mode="In" />
+    <Parameter Name="strCompanyAlternetNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="intRegType" Type="int" Mode="In" />
+    <Parameter Name="strUserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="strUserPassword" Type="nvarchar" Mode="In" />
+    <Parameter Name="intCompanyCode" Type="int" Mode="In" />
+    <Parameter Name="intCreatedBy" Type="int" Mode="In" />
+    <Parameter Name="dtpCreatedDate" Type="smalldatetime" Mode="In" />
+    <Parameter Name="strOutputMsg" Type="varchar" Mode="InOut" />
+    <Parameter Name="intOutputPKNo" Type="int" Mode="InOut" />
+    <Parameter Name="strOutputNo" Type="varchar" Mode="InOut" />
+  </Function>
+  <Function Name="usp_MaxID_Number" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="tblname" Type="varchar" Mode="In" />
+    <Parameter Name="fldname" Type="varchar" Mode="In" />
+    <Parameter Name="WhereCriteria" Type="varchar" Mode="In" />
+    <Parameter Name="maxID" Type="bigint" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="MetalInventoryModelStoreContainer">
+    <EntitySet Name="Master_CommonType" EntityType="Self.Master_CommonType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_CommonValue" EntityType="Self.Master_CommonValue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_Registration" EntityType="Self.Master_Registration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Master_UserMaster" EntityType="Self.Master_UserMaster" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Master_Registration_Master_CommonValue" Association="Self.FK_Master_Registration_Master_CommonValue">
+      <End Role="Master_CommonValue" EntitySet="Master_CommonValue" />
+      <End Role="Master_Registration" EntitySet="Master_Registration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_UserMaster_Master_UserMaster" Association="Self.FK_Master_UserMaster_Master_UserMaster">
+      <End Role="Master_Registration" EntitySet="Master_Registration" />
+      <End Role="Master_UserMaster" EntitySet="Master_UserMaster" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

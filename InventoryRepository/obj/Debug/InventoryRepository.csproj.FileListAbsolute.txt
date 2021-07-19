@@ -1,0 +1,6 @@
+E:\MVC\Sagar Khot\InventoryRepository\bin\Debug\InventoryRepository.dll
+E:\MVC\Sagar Khot\InventoryRepository\bin\Debug\InventoryRepository.pdb
+E:\MVC\Sagar Khot\InventoryRepository\obj\Debug\InventoryRepository.csprojAssemblyReference.cache
+E:\MVC\Sagar Khot\InventoryRepository\obj\Debug\InventoryRepository.csproj.CoreCompileInputs.cache
+E:\MVC\Sagar Khot\InventoryRepository\obj\Debug\InventoryRepository.dll
+E:\MVC\Sagar Khot\InventoryRepository\obj\Debug\InventoryRepository.pdb

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MetalInventoryModelStoreContainer" CdmEntityContainer="MetalInventoryEntities">
+    <EntitySetMapping Name="Master_CommonType">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_CommonType">
+        <MappingFragment StoreEntitySet="Master_CommonType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CommonType" ColumnName="CommonType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_CommonValue">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_CommonValue">
+        <MappingFragment StoreEntitySet="Master_CommonValue">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CommonType" ColumnName="CommonType" />
+          <ScalarProperty Name="CommonValue" ColumnName="CommonValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Registration">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_Registration">
+        <MappingFragment StoreEntitySet="Master_Registration">
+          <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+          <ScalarProperty Name="RegId" ColumnName="RegId" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+          <ScalarProperty Name="CompanyGST" ColumnName="CompanyGST" />
+          <ScalarProperty Name="CompanyPan" ColumnName="CompanyPan" />
+          <ScalarProperty Name="CompanyEmail" ColumnName="CompanyEmail" />
+          <ScalarProperty Name="CompanyContact" ColumnName="CompanyContact" />
+          <ScalarProperty Name="CompanyAlternetNo" ColumnName="CompanyAlternetNo" />
+          <ScalarProperty Name="RegType" ColumnName="RegType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_UserMaster">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_UserMaster">
+        <MappingFragment StoreEntitySet="Master_UserMaster">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="freez" ColumnName="freez" />
+          <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+          <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+          <ScalarProperty Name="companyId" ColumnName="companyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DML_Authentication" FunctionName="MetalInventoryModel.Store.DML_Authentication" />
+    <FunctionImportMapping FunctionImportName="usp_MaxID_Number" FunctionName="MetalInventoryModel.Store.usp_MaxID_Number" />
+  </EntityContainerMapping>
+</Mapping>

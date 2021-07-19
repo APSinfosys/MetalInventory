@@ -1,0 +1,540 @@
+﻿
+@{
+    ViewBag.Title = "Godawn";
+    Layout = "~/Views/Shared/_DashboardVertical.cshtml";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h2 class="mb-0 font-size-22">Godawn</h2>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Master's</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Godawn</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="container-fluid">
+                    <div class="form-inline row">
+                        <div class="col-sm-9">
+                            <input class="form-control" type="search" placeholder="Search here..." style="width:100%">
+                        </div>
+                        <div class=" col-sm-3">
+
+                            <div class="my-4 text-right">
+                                <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg">Add New</button>
+                            </div>
+                            <!--  Modal content for the above example -->
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title mt-0" id="myLargeModalLabel">ADD SUPPLIER</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <form class="mx-3">
+                                                <div class="form-group row pb-2 pt-2">
+                                                    @*<label for="formrow-firstname-input" style="padding:5px">Firm Name</label>*@
+                                                    @*<div class="col-1"></div>*@
+                                                    <input type="text" class="form-control col-12 text-uppercase" placeholder="Supplier name" id="formrow-firstname-input">
+                                                    @*<div class="col-1"></div>*@
+                                                </div>
+                                                <div class="form-group row pb-2">
+                                                    <input type="text" class="form-control col-12 text-uppercase" placeholder="Owner name" id="formrow-ownername-input">
+                                                </div>
+                                                <div class="form-group row pb-2">
+                                                    <textarea class="form-control col-lg-7 col-md-12 col-sm-12 text-uppercase" rows="4" placeholder="Firm Address" id="formrow-address-input"></textarea>
+                                                    <div class="col-lg-1 d-md-block d-sm-none"></div>
+                                                    <div class="row d-md-none d-sm-block d-block pb-2"></div>
+                                                    <div class="col-lg-4 col-md-12 col-sm-12 ">
+                                                        <div class="row">
+                                                            <input type="text" class="form-control col-12 mb-1 text-uppercase" style="width:100%" placeholder="Gst no" id="formrow-gstno-input">
+                                                        </div>
+                                                        <div class="row">
+                                                            <input type="text" class="form-control col-12 mt-2 text-uppercase" style="width:100%" placeholder="Pan no" id="formrow-panno-input">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row pb-2">
+                                                    <select class="form-control col-lg-4 col-md-5 col-sm-12 text-uppercase" id="formrow-state-input">
+                                                        <option>-- Select State --</option>
+                                                        <option>Large select</option>
+                                                        <option>Small select</option>
+                                                    </select>
+
+                                                    <div class="col-1 d-none d-md-block"></div>
+                                                    <div class="row d-block d-md-none  pb-2"></div>
+                                                    <input type="text" class="form-control col-lg-7 col-md-6 col-sm-12 mt-sm-2 text-uppercase" placeholder="Email Id" id="formrow-emailid-input">
+                                                </div>
+                                                <div class="row pb-1">
+                                                    <div class="col-7"></div>
+                                                    <div class="col-2">
+                                                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button type="button" class="btn btn-danger w-md" data-dismiss="modal" aria-label="Close">Cancle</button>
+                                                    </div>
+                                                    <div class="col-1"></div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="d-none d-md-block ">
+                    <div class="table-responsive">
+                        <table class="table table-centered table-nowrap mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th style="width: 20px;">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                        </div>
+                                    </th>
+                                    <th>Firm ID</th>
+                                    <th>Firm Name</th>
+                                    <th>GST No</th>
+                                    <th>Bank Name</th>
+                                    <th>A/C No</th>
+                                    <th>IFSC Code</th>
+                                    <th>View Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                            <label class="custom-control-label" for="customCheck2">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2540</a> </td>
+                                    <td class="text-capitalize">Bit's & Byte's Solution Pvt. Ltd.</td>
+                                    <td class="text-uppercase">
+                                        27bslpg7111g1lp
+                                    </td>
+                                    <td class="text-capitalize">
+                                        bank of maharashtra
+                                    </td>
+                                    <td>
+                                        @*<span class="badge badge-pill badge-soft-success font-size-12">Paid</span>*@
+                                        5218
+                                    </td>
+                                    <td class="text-uppercase">
+                                        @*<i class="fab fa-cc-mastercard mr-1"></i> Mastercard*@
+                                        icic000143
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck3">
+                                            <label class="custom-control-label" for="customCheck3">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2541</a> </td>
+                                    <td>Jamal Burnett</td>
+                                    <td>
+                                        07 Oct, 2019
+                                    </td>
+                                    <td>
+                                        $380
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-pill badge-soft-danger font-size-12">Chargeback</span>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-cc-visa mr-1"></i> Visa
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck4">
+                                            <label class="custom-control-label" for="customCheck4">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2542</a> </td>
+                                    <td>Juan Mitchell</td>
+                                    <td>
+                                        06 Oct, 2019
+                                    </td>
+                                    <td>
+                                        $384
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-cc-paypal mr-1"></i> Paypal
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck5">
+                                            <label class="custom-control-label" for="customCheck5">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2543</a> </td>
+                                    <td>Barry Dick</td>
+                                    <td>
+                                        05 Oct, 2019
+                                    </td>
+                                    <td>
+                                        $412
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-cc-mastercard mr-1"></i> Mastercard
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck6">
+                                            <label class="custom-control-label" for="customCheck6">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2544</a> </td>
+                                    <td>Ronald Taylor</td>
+                                    <td>
+                                        04 Oct, 2019
+                                    </td>
+                                    <td>
+                                        $404
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-pill badge-soft-warning font-size-12">Refund</span>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-cc-visa mr-1"></i> Visa
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck7">
+                                            <label class="custom-control-label" for="customCheck7">&nbsp;</label>
+                                        </div>
+                                    </td>
+                                    <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2545</a> </td>
+                                    <td>Jacob Hunter</td>
+                                    <td>
+                                        04 Oct, 2019
+                                    </td>
+                                    <td>
+                                        $392
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
+                                    </td>
+                                    <td>
+                                        <i class="fab fa-cc-paypal mr-1"></i> Paypal
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- end table-responsive -->
+            <div class="d-sm-block d-md-none">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="card overflow-hidden">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="text-primary pt-3 pl-3">
+                                            <p>#SK2540</p>
+                                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-2">
+                                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                                            <b class="text-capitalize">bank of maharashtra</b><br />
+                                            <b>A/c No: 5262</b>
+                                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="card overflow-hidden">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="text-primary pt-3 pl-3">
+                                            <p>#SK2540</p>
+                                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-2">
+                                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                                            <b class="text-capitalize">bank of maharashtra</b><br />
+                                            <b>A/c No: 5262</b>
+                                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="card overflow-hidden">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="text-primary pt-3 pl-3">
+                                            <p>#SK2540</p>
+                                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-2">
+                                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                                            <b class="text-capitalize">bank of maharashtra</b><br />
+                                            <b>A/c No: 5262</b>
+                                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="card overflow-hidden">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="text-primary pt-3 pl-3">
+                                            <p>#SK2540</p>
+                                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-2">
+                                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                                            <b class="text-capitalize">bank of maharashtra</b><br />
+                                            <b>A/c No: 5262</b>
+                                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="card overflow-hidden">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="text-primary pt-3 pl-3">
+                                            <p>#SK2540</p>
+                                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-2">
+                                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                                            <b class="text-capitalize">bank of maharashtra</b><br />
+                                            <b>A/c No: 5262</b>
+                                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="card overflow-hidden">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="text-primary pt-3 pl-3">
+                                            <p>#SK2540</p>
+                                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-2">
+                                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                                            <b class="text-capitalize">bank of maharashtra</b><br />
+                                            <b>A/c No: 5262</b>
+                                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="card overflow-hidden">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="text-primary pt-3 pl-3">
+                                            <p>#SK2540</p>
+                                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-2">
+                                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                                            <b class="text-capitalize">bank of maharashtra</b><br />
+                                            <b>A/c No: 5262</b>
+                                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                        <div class="card overflow-hidden">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="text-primary pt-3 pl-3">
+                                            <p>#SK2540</p>
+                                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-2">
+                                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                                            <b class="text-capitalize">bank of maharashtra</b><br />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

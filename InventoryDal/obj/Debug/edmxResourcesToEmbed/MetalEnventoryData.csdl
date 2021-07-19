@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MetalInventoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Master_CommonType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommonType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Master_CommonValue">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommonType" Type="Int32" Nullable="false" />
+    <Property Name="CommonValue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Master_RoleMaster" Relationship="MetalInventoryModel.FK_Master_RoleMaster_Master_CommonValue" FromRole="Master_CommonValue" ToRole="Master_RoleMaster" />
+  </EntityType>
+  <EntityType Name="Master_Registration">
+    <Key>
+      <PropertyRef Name="RegId" />
+    </Key>
+    <Property Name="RegId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CompanyAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyGST" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyPan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyContact" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyAlternetNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="RegType" Type="Int32" />
+    <Property Name="CompanyCode" Type="Int32" />
+    <Property Name="RegStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Master_UserMaster">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="freez" Type="Int32" Nullable="false" />
+    <Property Name="createdBy" Type="Int32" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <Property Name="updatedBy" Type="Int32" />
+    <Property Name="updatedDate" Type="DateTime" Precision="0" />
+    <Property Name="companyId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Master_RoleMaster" Relationship="MetalInventoryModel.FK_Master_RoleMaster_Master_UserMaster" FromRole="Master_UserMaster" ToRole="Master_RoleMaster" />
+  </EntityType>
+  <EntityContainer Name="MetalInventoryEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Master_CommonType" EntityType="Self.Master_CommonType" />
+    <EntitySet Name="Master_CommonValue" EntityType="Self.Master_CommonValue" />
+    <EntitySet Name="Master_Registration" EntityType="Self.Master_Registration" />
+    <EntitySet Name="Master_UserMaster" EntityType="Self.Master_UserMaster" />
+    <EntitySet Name="Master_RoleMaster" EntityType="MetalInventoryModel.Master_RoleMaster" />
+    <AssociationSet Name="FK_Master_RoleMaster_Master_CommonValue" Association="MetalInventoryModel.FK_Master_RoleMaster_Master_CommonValue">
+      <End Role="Master_CommonValue" EntitySet="Master_CommonValue" />
+      <End Role="Master_RoleMaster" EntitySet="Master_RoleMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_RoleMaster_Master_UserMaster" Association="MetalInventoryModel.FK_Master_RoleMaster_Master_UserMaster">
+      <End Role="Master_UserMaster" EntitySet="Master_UserMaster" />
+      <End Role="Master_RoleMaster" EntitySet="Master_RoleMaster" />
+    </AssociationSet>
+    <EntitySet Name="Transaction_BankTransactions" EntityType="MetalInventoryModel.Transaction_BankTransactions" />
+    <EntitySet Name="Master_BankAccountMaster" EntityType="MetalInventoryModel.Master_BankAccountMaster" />
+  </EntityContainer>
+  <EntityType Name="Master_RoleMaster">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <Property Name="createdBy" Type="Int32" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <Property Name="updatedBy" Type="Int32" />
+    <Property Name="updatedDate" Type="DateTime" Precision="0" />
+    <Property Name="freez" Type="Int32" Nullable="false" />
+    <Property Name="companyId" Type="Int32" />
+    <NavigationProperty Name="Master_CommonValue" Relationship="MetalInventoryModel.FK_Master_RoleMaster_Master_CommonValue" FromRole="Master_RoleMaster" ToRole="Master_CommonValue" />
+    <NavigationProperty Name="Master_UserMaster" Relationship="MetalInventoryModel.FK_Master_RoleMaster_Master_UserMaster" FromRole="Master_RoleMaster" ToRole="Master_UserMaster" />
+  </EntityType>
+  <Association Name="FK_Master_RoleMaster_Master_CommonValue">
+    <End Type="MetalInventoryModel.Master_CommonValue" Role="Master_CommonValue" Multiplicity="1" />
+    <End Type="MetalInventoryModel.Master_RoleMaster" Role="Master_RoleMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_CommonValue">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Master_RoleMaster">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_RoleMaster_Master_UserMaster">
+    <End Type="MetalInventoryModel.Master_UserMaster" Role="Master_UserMaster" Multiplicity="1" />
+    <End Type="MetalInventoryModel.Master_RoleMaster" Role="Master_RoleMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Master_UserMaster">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Master_RoleMaster">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Transaction_BankTransactions">
+    <Key>
+      <PropertyRef Name="TranId" />
+    </Key>
+    <Property Name="TranId" Type="Int32" Nullable="false" />
+    <Property Name="fromAccount" Type="Int32" />
+    <Property Name="amtIn" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="amtOut" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="toAccount" Type="Int32" />
+    <Property Name="createdBy" Type="Int32" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <Property Name="updatedBy" Type="Int32" />
+    <Property Name="updatedDate" Type="DateTime" Precision="0" />
+    <Property Name="deletedBy" Type="Int32" />
+    <Property Name="deletedDate" Type="DateTime" Precision="0" />
+    <Property Name="freez" Type="Int32" />
+    <Property Name="companyId" Type="Int32" />
+    <Property Name="yearId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Master_BankAccountMaster">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BankName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IFSC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Holder" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdBy" Type="Int32" />
+    <Property Name="createdDate" Type="DateTime" Precision="0" />
+    <Property Name="updatedBy" Type="Int32" />
+    <Property Name="updatedDate" Type="DateTime" Precision="0" />
+    <Property Name="freez" Type="Int32" />
+    <Property Name="companyId" Type="Int32" />
+    <Property Name="yearId" Type="Int32" />
+    <Property Name="OpeningBal" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+</Schema>

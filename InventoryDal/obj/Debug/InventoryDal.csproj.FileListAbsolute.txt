@@ -1,0 +1,14 @@
+E:\MVC\Sagar Khot\InventoryDal\bin\Debug\InventoryDal.dll.config
+E:\MVC\Sagar Khot\InventoryDal\bin\Debug\InventoryDal.dll
+E:\MVC\Sagar Khot\InventoryDal\bin\Debug\InventoryDal.pdb
+E:\MVC\Sagar Khot\InventoryDal\bin\Debug\EntityFramework.dll
+E:\MVC\Sagar Khot\InventoryDal\bin\Debug\EntityFramework.SqlServer.dll
+E:\MVC\Sagar Khot\InventoryDal\bin\Debug\InventoryRepository.dll
+E:\MVC\Sagar Khot\InventoryDal\bin\Debug\InventoryRepository.pdb
+E:\MVC\Sagar Khot\InventoryDal\bin\Debug\EntityFramework.xml
+E:\MVC\Sagar Khot\InventoryDal\bin\Debug\EntityFramework.SqlServer.xml
+E:\MVC\Sagar Khot\InventoryDal\obj\Debug\InventoryDal.csprojAssemblyReference.cache
+E:\MVC\Sagar Khot\InventoryDal\obj\Debug\InventoryDal.csproj.CoreCompileInputs.cache
+E:\MVC\Sagar Khot\InventoryDal\obj\Debug\InventoryDal.csproj.CopyComplete
+E:\MVC\Sagar Khot\InventoryDal\obj\Debug\InventoryDal.dll
+E:\MVC\Sagar Khot\InventoryDal\obj\Debug\InventoryDal.pdb

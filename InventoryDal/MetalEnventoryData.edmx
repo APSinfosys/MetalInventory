@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MetalInventoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Master_BankAccountMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Branch" Type="varchar" MaxLength="50" />
+          <Property Name="address" Type="varchar" MaxLength="100" />
+          <Property Name="IFSC" Type="varchar" MaxLength="20" />
+          <Property Name="Holder" Type="varchar" MaxLength="100" />
+          <Property Name="createdBy" Type="int" />
+          <Property Name="createdDate" Type="smalldatetime" />
+          <Property Name="updatedBy" Type="int" />
+          <Property Name="updatedDate" Type="smalldatetime" />
+          <Property Name="freez" Type="int" />
+          <Property Name="companyId" Type="int" />
+          <Property Name="yearId" Type="int" />
+          <Property Name="OpeningBal" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Master_CommonType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommonType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Master_CommonValue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommonType" Type="int" Nullable="false" />
+          <Property Name="CommonValue" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Master_Registration">
+          <Key>
+            <PropertyRef Name="RegId" />
+          </Key>
+          <Property Name="RegId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CompanyAddress" Type="nvarchar" MaxLength="500" />
+          <Property Name="CompanyGST" Type="nvarchar" MaxLength="20" />
+          <Property Name="CompanyPan" Type="nvarchar" MaxLength="20" />
+          <Property Name="CompanyEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyContact" Type="nvarchar" MaxLength="20" />
+          <Property Name="CompanyAlternetNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="RegType" Type="int" />
+          <Property Name="CompanyCode" Type="int" />
+          <Property Name="RegStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="Master_RoleMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="createdBy" Type="int" />
+          <Property Name="createdDate" Type="smalldatetime" />
+          <Property Name="updatedBy" Type="int" />
+          <Property Name="updatedDate" Type="smalldatetime" />
+          <Property Name="freez" Type="int" Nullable="false" />
+          <Property Name="companyId" Type="int" />
+        </EntityType>
+        <EntityType Name="Master_UserMaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="freez" Type="int" Nullable="false" />
+          <Property Name="createdBy" Type="int" />
+          <Property Name="createdDate" Type="smalldatetime" />
+          <Property Name="updatedBy" Type="int" />
+          <Property Name="updatedDate" Type="smalldatetime" />
+          <Property Name="companyId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MetalInventory.dbo.Transaction_BankTransactions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Transaction_BankTransactions">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="int" Nullable="false" />
+          <Property Name="fromAccount" Type="int" />
+          <Property Name="amtIn" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="amtOut" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FormName" Type="varchar" MaxLength="50" />
+          <Property Name="toAccount" Type="int" />
+          <Property Name="createdBy" Type="int" />
+          <Property Name="createdDate" Type="smalldatetime" />
+          <Property Name="updatedBy" Type="int" />
+          <Property Name="updatedDate" Type="smalldatetime" />
+          <Property Name="deletedBy" Type="int" />
+          <Property Name="deletedDate" Type="smalldatetime" />
+          <Property Name="freez" Type="int" />
+          <Property Name="companyId" Type="int" />
+          <Property Name="yearId" Type="int" />
+        </EntityType>
+        <Association Name="FK_Master_RoleMaster_Master_CommonValue">
+          <End Role="Master_CommonValue" Type="Self.Master_CommonValue" Multiplicity="1" />
+          <End Role="Master_RoleMaster" Type="Self.Master_RoleMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_CommonValue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Master_RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_RoleMaster_Master_UserMaster">
+          <End Role="Master_UserMaster" Type="Self.Master_UserMaster" Multiplicity="1" />
+          <End Role="Master_RoleMaster" Type="Self.Master_RoleMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Master_RoleMaster">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MetalInventoryModelStoreContainer">
+          <EntitySet Name="Master_BankAccountMaster" EntityType="Self.Master_BankAccountMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_CommonType" EntityType="Self.Master_CommonType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_CommonValue" EntityType="Self.Master_CommonValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_Registration" EntityType="Self.Master_Registration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_RoleMaster" EntityType="Self.Master_RoleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_UserMaster" EntityType="Self.Master_UserMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction_BankTransactions" EntityType="Self.Transaction_BankTransactions" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Transaction_BankTransactions].[TranId] AS [TranId], 
+    [Transaction_BankTransactions].[fromAccount] AS [fromAccount], 
+    [Transaction_BankTransactions].[amtIn] AS [amtIn], 
+    [Transaction_BankTransactions].[amtOut] AS [amtOut], 
+    [Transaction_BankTransactions].[FormName] AS [FormName], 
+    [Transaction_BankTransactions].[toAccount] AS [toAccount], 
+    [Transaction_BankTransactions].[createdBy] AS [createdBy], 
+    [Transaction_BankTransactions].[createdDate] AS [createdDate], 
+    [Transaction_BankTransactions].[updatedBy] AS [updatedBy], 
+    [Transaction_BankTransactions].[updatedDate] AS [updatedDate], 
+    [Transaction_BankTransactions].[deletedBy] AS [deletedBy], 
+    [Transaction_BankTransactions].[deletedDate] AS [deletedDate], 
+    [Transaction_BankTransactions].[freez] AS [freez], 
+    [Transaction_BankTransactions].[companyId] AS [companyId], 
+    [Transaction_BankTransactions].[yearId] AS [yearId]
+    FROM [dbo].[Transaction_BankTransactions] AS [Transaction_BankTransactions]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Master_RoleMaster_Master_CommonValue" Association="Self.FK_Master_RoleMaster_Master_CommonValue">
+            <End Role="Master_CommonValue" EntitySet="Master_CommonValue" />
+            <End Role="Master_RoleMaster" EntitySet="Master_RoleMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_RoleMaster_Master_UserMaster" Association="Self.FK_Master_RoleMaster_Master_UserMaster">
+            <End Role="Master_UserMaster" EntitySet="Master_UserMaster" />
+            <End Role="Master_RoleMaster" EntitySet="Master_RoleMaster" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MetalInventoryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Master_CommonType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommonType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Master_CommonValue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommonType" Type="Int32" Nullable="false" />
+          <Property Name="CommonValue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Master_RoleMaster" Relationship="MetalInventoryModel.FK_Master_RoleMaster_Master_CommonValue" FromRole="Master_CommonValue" ToRole="Master_RoleMaster" />
+        </EntityType>
+        <EntityType Name="Master_Registration">
+          <Key>
+            <PropertyRef Name="RegId" />
+          </Key>
+          <Property Name="RegId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyGST" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyPan" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyContact" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyAlternetNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RegType" Type="Int32" />
+          <Property Name="CompanyCode" Type="Int32" />
+          <Property Name="RegStatus" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Master_UserMaster">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="freez" Type="Int32" Nullable="false" />
+          <Property Name="createdBy" Type="Int32" />
+          <Property Name="createdDate" Type="DateTime" Precision="0" />
+          <Property Name="updatedBy" Type="Int32" />
+          <Property Name="updatedDate" Type="DateTime" Precision="0" />
+          <Property Name="companyId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Master_RoleMaster" Relationship="MetalInventoryModel.FK_Master_RoleMaster_Master_UserMaster" FromRole="Master_UserMaster" ToRole="Master_RoleMaster" />
+        </EntityType>
+        <EntityContainer Name="MetalInventoryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Master_CommonType" EntityType="Self.Master_CommonType" />
+          <EntitySet Name="Master_CommonValue" EntityType="Self.Master_CommonValue" />
+          <EntitySet Name="Master_Registration" EntityType="Self.Master_Registration" />
+          <EntitySet Name="Master_UserMaster" EntityType="Self.Master_UserMaster" />
+          <EntitySet Name="Master_RoleMaster" EntityType="MetalInventoryModel.Master_RoleMaster" />
+          <AssociationSet Name="FK_Master_RoleMaster_Master_CommonValue" Association="MetalInventoryModel.FK_Master_RoleMaster_Master_CommonValue">
+            <End Role="Master_CommonValue" EntitySet="Master_CommonValue" />
+            <End Role="Master_RoleMaster" EntitySet="Master_RoleMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_RoleMaster_Master_UserMaster" Association="MetalInventoryModel.FK_Master_RoleMaster_Master_UserMaster">
+            <End Role="Master_UserMaster" EntitySet="Master_UserMaster" />
+            <End Role="Master_RoleMaster" EntitySet="Master_RoleMaster" />
+          </AssociationSet>
+          <EntitySet Name="Transaction_BankTransactions" EntityType="MetalInventoryModel.Transaction_BankTransactions" />
+          <EntitySet Name="Master_BankAccountMaster" EntityType="MetalInventoryModel.Master_BankAccountMaster" />
+        </EntityContainer>
+        <EntityType Name="Master_RoleMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="createdBy" Type="Int32" />
+          <Property Name="createdDate" Type="DateTime" Precision="0" />
+          <Property Name="updatedBy" Type="Int32" />
+          <Property Name="updatedDate" Type="DateTime" Precision="0" />
+          <Property Name="freez" Type="Int32" Nullable="false" />
+          <Property Name="companyId" Type="Int32" />
+          <NavigationProperty Name="Master_CommonValue" Relationship="MetalInventoryModel.FK_Master_RoleMaster_Master_CommonValue" FromRole="Master_RoleMaster" ToRole="Master_CommonValue" />
+          <NavigationProperty Name="Master_UserMaster" Relationship="MetalInventoryModel.FK_Master_RoleMaster_Master_UserMaster" FromRole="Master_RoleMaster" ToRole="Master_UserMaster" />
+        </EntityType>
+        <Association Name="FK_Master_RoleMaster_Master_CommonValue">
+          <End Type="MetalInventoryModel.Master_CommonValue" Role="Master_CommonValue" Multiplicity="1" />
+          <End Type="MetalInventoryModel.Master_RoleMaster" Role="Master_RoleMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_CommonValue">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Master_RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_RoleMaster_Master_UserMaster">
+          <End Type="MetalInventoryModel.Master_UserMaster" Role="Master_UserMaster" Multiplicity="1" />
+          <End Type="MetalInventoryModel.Master_RoleMaster" Role="Master_RoleMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_UserMaster">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Master_RoleMaster">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Transaction_BankTransactions">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="Int32" Nullable="false" />
+          <Property Name="fromAccount" Type="Int32" />
+          <Property Name="amtIn" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="amtOut" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="toAccount" Type="Int32" />
+          <Property Name="createdBy" Type="Int32" />
+          <Property Name="createdDate" Type="DateTime" Precision="0" />
+          <Property Name="updatedBy" Type="Int32" />
+          <Property Name="updatedDate" Type="DateTime" Precision="0" />
+          <Property Name="deletedBy" Type="Int32" />
+          <Property Name="deletedDate" Type="DateTime" Precision="0" />
+          <Property Name="freez" Type="Int32" />
+          <Property Name="companyId" Type="Int32" />
+          <Property Name="yearId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Master_BankAccountMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IFSC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Holder" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdBy" Type="Int32" />
+          <Property Name="createdDate" Type="DateTime" Precision="0" />
+          <Property Name="updatedBy" Type="Int32" />
+          <Property Name="updatedDate" Type="DateTime" Precision="0" />
+          <Property Name="freez" Type="Int32" />
+          <Property Name="companyId" Type="Int32" />
+          <Property Name="yearId" Type="Int32" />
+          <Property Name="OpeningBal" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MetalInventoryModelStoreContainer" CdmEntityContainer="MetalInventoryEntities">
+          <EntitySetMapping Name="Master_CommonType">
+            <EntityTypeMapping TypeName="MetalInventoryModel.Master_CommonType">
+              <MappingFragment StoreEntitySet="Master_CommonType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CommonType" ColumnName="CommonType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Master_CommonValue">
+            <EntityTypeMapping TypeName="MetalInventoryModel.Master_CommonValue">
+              <MappingFragment StoreEntitySet="Master_CommonValue">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CommonType" ColumnName="CommonType" />
+                <ScalarProperty Name="CommonValue" ColumnName="CommonValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Master_Registration">
+            <EntityTypeMapping TypeName="MetalInventoryModel.Master_Registration">
+              <MappingFragment StoreEntitySet="Master_Registration">
+                <ScalarProperty Name="RegStatus" ColumnName="RegStatus" />
+                <ScalarProperty Name="RegId" ColumnName="RegId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+                <ScalarProperty Name="CompanyGST" ColumnName="CompanyGST" />
+                <ScalarProperty Name="CompanyPan" ColumnName="CompanyPan" />
+                <ScalarProperty Name="CompanyEmail" ColumnName="CompanyEmail" />
+                <ScalarProperty Name="CompanyContact" ColumnName="CompanyContact" />
+                <ScalarProperty Name="CompanyAlternetNo" ColumnName="CompanyAlternetNo" />
+                <ScalarProperty Name="RegType" ColumnName="RegType" />
+                <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Master_UserMaster">
+            <EntityTypeMapping TypeName="MetalInventoryModel.Master_UserMaster">
+              <MappingFragment StoreEntitySet="Master_UserMaster">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="freez" ColumnName="freez" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Master_RoleMaster">
+            <EntityTypeMapping TypeName="MetalInventoryModel.Master_RoleMaster">
+              <MappingFragment StoreEntitySet="Master_RoleMaster">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="freez" ColumnName="freez" />
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_BankTransactions">
+            <EntityTypeMapping TypeName="MetalInventoryModel.Transaction_BankTransactions">
+              <MappingFragment StoreEntitySet="Transaction_BankTransactions">
+                <ScalarProperty Name="yearId" ColumnName="yearId" />
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="freez" ColumnName="freez" />
+                <ScalarProperty Name="deletedDate" ColumnName="deletedDate" />
+                <ScalarProperty Name="deletedBy" ColumnName="deletedBy" />
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="toAccount" ColumnName="toAccount" />
+                <ScalarProperty Name="FormName" ColumnName="FormName" />
+                <ScalarProperty Name="amtOut" ColumnName="amtOut" />
+                <ScalarProperty Name="amtIn" ColumnName="amtIn" />
+                <ScalarProperty Name="fromAccount" ColumnName="fromAccount" />
+                <ScalarProperty Name="TranId" ColumnName="TranId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Master_BankAccountMaster">
+            <EntityTypeMapping TypeName="MetalInventoryModel.Master_BankAccountMaster">
+              <MappingFragment StoreEntitySet="Master_BankAccountMaster">
+                <ScalarProperty Name="OpeningBal" ColumnName="OpeningBal" />
+                <ScalarProperty Name="yearId" ColumnName="yearId" />
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="freez" ColumnName="freez" />
+                <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+                <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="Holder" ColumnName="Holder" />
+                <ScalarProperty Name="IFSC" ColumnName="IFSC" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MetalInventoryModelStoreContainer" CdmEntityContainer="MetalInventoryEntities">
+    <EntitySetMapping Name="Master_CommonType">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_CommonType">
+        <MappingFragment StoreEntitySet="Master_CommonType">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CommonType" ColumnName="CommonType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_CommonValue">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_CommonValue">
+        <MappingFragment StoreEntitySet="Master_CommonValue">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CommonType" ColumnName="CommonType" />
+          <ScalarProperty Name="CommonValue" ColumnName="CommonValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_Registration">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_Registration">
+        <MappingFragment StoreEntitySet="Master_Registration">
+          <ScalarProperty Name="RegStatus" ColumnName="RegStatus" />
+          <ScalarProperty Name="RegId" ColumnName="RegId" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+          <ScalarProperty Name="CompanyGST" ColumnName="CompanyGST" />
+          <ScalarProperty Name="CompanyPan" ColumnName="CompanyPan" />
+          <ScalarProperty Name="CompanyEmail" ColumnName="CompanyEmail" />
+          <ScalarProperty Name="CompanyContact" ColumnName="CompanyContact" />
+          <ScalarProperty Name="CompanyAlternetNo" ColumnName="CompanyAlternetNo" />
+          <ScalarProperty Name="RegType" ColumnName="RegType" />
+          <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_UserMaster">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_UserMaster">
+        <MappingFragment StoreEntitySet="Master_UserMaster">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="freez" ColumnName="freez" />
+          <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+          <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+          <ScalarProperty Name="companyId" ColumnName="companyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_RoleMaster">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_RoleMaster">
+        <MappingFragment StoreEntitySet="Master_RoleMaster">
+          <ScalarProperty Name="companyId" ColumnName="companyId" />
+          <ScalarProperty Name="freez" ColumnName="freez" />
+          <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+          <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_BankTransactions">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Transaction_BankTransactions">
+        <MappingFragment StoreEntitySet="Transaction_BankTransactions">
+          <ScalarProperty Name="yearId" ColumnName="yearId" />
+          <ScalarProperty Name="companyId" ColumnName="companyId" />
+          <ScalarProperty Name="freez" ColumnName="freez" />
+          <ScalarProperty Name="deletedDate" ColumnName="deletedDate" />
+          <ScalarProperty Name="deletedBy" ColumnName="deletedBy" />
+          <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+          <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+          <ScalarProperty Name="toAccount" ColumnName="toAccount" />
+          <ScalarProperty Name="FormName" ColumnName="FormName" />
+          <ScalarProperty Name="amtOut" ColumnName="amtOut" />
+          <ScalarProperty Name="amtIn" ColumnName="amtIn" />
+          <ScalarProperty Name="fromAccount" ColumnName="fromAccount" />
+          <ScalarProperty Name="TranId" ColumnName="TranId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Master_BankAccountMaster">
+      <EntityTypeMapping TypeName="MetalInventoryModel.Master_BankAccountMaster">
+        <MappingFragment StoreEntitySet="Master_BankAccountMaster">
+          <ScalarProperty Name="OpeningBal" ColumnName="OpeningBal" />
+          <ScalarProperty Name="yearId" ColumnName="yearId" />
+          <ScalarProperty Name="companyId" ColumnName="companyId" />
+          <ScalarProperty Name="freez" ColumnName="freez" />
+          <ScalarProperty Name="updatedDate" ColumnName="updatedDate" />
+          <ScalarProperty Name="updatedBy" ColumnName="updatedBy" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+          <ScalarProperty Name="Holder" ColumnName="Holder" />
+          <ScalarProperty Name="IFSC" ColumnName="IFSC" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

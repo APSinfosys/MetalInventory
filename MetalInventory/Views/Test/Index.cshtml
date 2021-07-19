@@ -1,0 +1,97 @@
+﻿@model IEnumerable<InventoryRepository.Masters.BankAccMasterModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+    <input type="button" value="Add New" onclick="createPopup()" />
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BankName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Branch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IFSC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Holder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OpeningBal)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Branch)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IFSC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Holder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpeningBal)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+<div id="openPopup" style="display:none">
+
+</div>
+
+
+<script type="text/javascript">
+    alert("In Script popup")
+    function createPopup() {
+        var x = $("#openPopup");
+        alert("in function")
+        x.load('/Test/Create', function () {
+            x.dialog({
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration:1000
+                },
+                modal: true,
+                width: 500,
+                height: 500,
+                title: "Add new bank",
+                resizable: false
+
+            });
+
+        });
+    }
+
+</script>

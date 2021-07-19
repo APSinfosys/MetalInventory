@@ -1,0 +1,307 @@
+﻿@model  IEnumerable<InventoryRepository.Masters.BankAccMasterModel>
+@*@model InventoryRepository.Masters.BankAccMasterModel*@
+@{
+    ViewBag.Title = "Bank A/C";
+    Layout = "~/Views/Shared/_DashboardVertical.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h2 class="mb-0 font-size-22">Bank A/c</h2>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Master's</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Bank A/c</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+
+                @*@{*@
+                @Html.Partial("_PartialCreateBank", new InventoryRepository.Masters.BankAccMasterModel())
+                @*; }*@
+
+                <div class="d-none d-md-block ">
+                    <div class="table-responsive">
+
+                        <table class="table table-centered table-nowrap mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th style="width: 20px;">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BankName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Branch)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.address)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.IFSC)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Holder)
+                                    </th>
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                                    <label class="custom-control-label" for="customCheck2">&nbsp;</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.BankName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Branch)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.address)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IFSC)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Holder)
+                                            </td>
+                                            <td>
+
+                                                <a href="javascript:void(0);" id="Edit" onclick="Edit(@item.Id)">EDIT</a>
+
+                                                @*<a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Details</a>
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                                    @Html.ActionLink("Move", "Edit", "Bank", new { id = item.Id}, new { @class = "move-modal" })*@
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id='myModal' class='modal'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'>
+                
+                <form class="mx-3" method="post" action="../Bank/Edit">
+                    <div class="form-group row pb-2 pt-2">
+                        <input type="text" class="form-control col-12 text-uppercase" id="bankName" />
+                        @*@Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control col-12 text-uppercase", @placeholder = "Enter bank name" } })
+                            @Html.ValidationMessageFor(model => model.BankName, "", new { @class = "text-danger" })*@
+                    </div>
+                    @*<div class="form-group row pb-2 pt-2">
+                        @Html.EditorFor(model => model.Holder, new { htmlAttributes = new { @class = "form-control col-12 text-uppercase", @placeholder = "Enter holder name" } })
+                        @Html.ValidationMessageFor(model => model.Holder, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group row pb-2 pt-2">
+                        @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control col-12 text-uppercase", @placeholder = "Enter address" } })
+                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group row pb-2 pt-2">
+                        @Html.EditorFor(model => model.Branch, new { htmlAttributes = new { @class = "form-control col-lg-6 col-md-12 text-uppercase", @placeholder = "Enter branch name" } })
+                        @Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
+
+                        <div class="col-lg-1 d-lg-block d-md-none"></div>
+                        @Html.EditorFor(model => model.IFSC, new { htmlAttributes = new { @class = "form-control col-lg-5 col-md-12 text-uppercase", @placeholder = "Enter IFSC code" } })
+                        @Html.ValidationMessageFor(model => model.IFSC, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group row pb-2 pt-2">
+                        @Html.EditorFor(model => model.OpeningBal, new { htmlAttributes = new { @class = "form-control col-6 text-uppercase", @placeholder = "Enter opening balance" } })
+                        @Html.ValidationMessageFor(model => model.OpeningBal, "", new { @class = "text-danger" })
+                    </div>*@
+                    <div class="row pb-1 flex-md-row">
+                        <div class="col-7"></div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-primary w-md" onclick="Submit()">Create</button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-danger w-md" data-dismiss="modal" aria-label="Close">Cancle</button>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+    function Edit(id) {
+
+        $.ajax(
+            {
+                url: "../Bank/Edit",
+                method: "GET",
+                contentType: "application/json; charset=utf-8",
+                data: { "id": id },
+                datatype: "json",
+                success: function (d) {
+
+                    var BN = JSON.parse(d);
+                    console.log(d);
+                    alert(BN.BankName);
+                    $('#myModal').modal('show');
+                    $('#bankName').val(BN.BankName);
+                },
+                error: function (err) {
+                    alert("In error method")
+                    alert(d)
+                    console.log(err);
+                }
+
+            }
+        );
+    }
+
+    function Submit() {
+        alert("IN SUBMIT");
+        $.ajax({
+
+            url: "../Bank/Edit",
+            method: "POST",
+            //data: { "id": $('#id').val, "BankName": $('#bankName').val },
+            data: { "id": 1, "BankName": "DEMO UPDATE" },
+            success: function (d) {
+                alert("Data submited");
+                return "../Bank/Index";
+            },
+            error: function (err) {
+                alert("Something went wrong");
+            }
+        });
+    }
+
+            //$(function () {
+            //            //$('.move-modal').click(function () {
+            //            //    event.preventDefault();
+            //            //    $('<div/>').appendTo('body').dialog({
+            //            //        close: function (event, ui) {
+            //            //            dialog.remove();
+            //            //        },
+            //            //        modal: true
+            //            //    }).load(this.href);
+            //            //});
+
+            //            alert("In fuction ");
+            //            $(".move-modal").click(function () {
+            //                //debugger;
+            //                event.preventDefault();
+            //                alert("In fuction button click");
+            //                var $buttonClicked = $(this);
+            //                var id = $buttonClicked.attr('id');
+            //                alert("Id is " + id);
+            //                var options = { "backdrop": "static", keyboard: true };
+            //                $.ajax({
+            //                    type: "GET",
+            //                    url: TeamDetailPostBackURL,
+            //                    contentType: "application/json; charset=utf-8",
+            //                    data: { "id": id },
+            //                    datatype: "json",
+            //                    success: function (data) {
+            //                        debugger;
+            //                        alert(data);
+            //                        $('#myModalContent').html(data);
+            //                        $('#myModal').modal(options);
+            //                        $('#myModal').modal('show');
+
+            //                    },
+            //                    error: function () {
+            //                        alert("Dynamic content load failed.");
+            //                    }
+            //                });
+            //            });
+</script>
+
+
+
+
+
+@*@section scripts
+    {*@
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+        alert("In Script");
+        var TeamDetailPostBackURL = '/Bank/Edit';
+        alert(" Url is " + TeamDetailPostBackURL);
+    //$(function () {
+        $(".anchorDetail").click(function () {
+            //debugger;
+            alert("In fuction");
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            alert("Id is " + id);
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: TeamDetailPostBackURL,
+                contentType: "application/json; charset=utf-8",
+                data: { "id": id },
+                datatype: "json",
+                success: function (data) {
+                    debugger;
+                    alert(data);
+                    $('#myModalContent').html(data);
+                    $('#myModal').modal(options);
+                    $('#myModal').modal('show');
+
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+        //$("#closebtn").on('click',function(){
+        //    $('#myModal').modal('hide');
+
+        $("#closbtn").click(function () {
+            $('#myModal').modal('hide');
+        });
+    });*@
+
+@*</script>*@
+
+@*}*@
+
+<!-- end table-responsive -->
