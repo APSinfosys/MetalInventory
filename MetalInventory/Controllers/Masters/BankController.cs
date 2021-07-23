@@ -20,54 +20,37 @@ namespace MetalInventory.Controllers.Masters
         
         public ActionResult Index()
         {
-            var data = repo.getAllBanks(); 
-            return View(data);
-        }
-
-
-        public PartialViewResult Add()
-        {
-            return PartialView("Add", new InventoryRepository.Masters.BankAccMasterModel());
-        }
-
-        [HttpPost]
-        public ActionResult Create(BankAccMasterModel bnk)
-        {
-            int Result = repo.CreateBank(bnk);
-            if(Result>0)
-            {
-                return RedirectToAction("Index");
-            }
             return View();
         }
 
-        public JsonResult Edit(int id)
+        public JsonResult List(int currentPage = 1, int pageSize = 10)
         {
-            var result = JsonConvert.SerializeObject( repo.getBank(id));
-
-        
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var Bdata = repo.getAllBanks();
+            var result1 = Bdata.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return Json(new { totalPage = Math.Ceiling(1.0 * Bdata.Count() / pageSize), Data = result1 }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Add(BankAccMasterModel bnk)
+        {
+            return Json(repo.CreateBank(bnk), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetbyID(int ID)
+        {
+            var bank = repo.getBank(ID);// empDB.ListAll().Find(x => x.EmployeeID.Equals(ID));
+            return Json(bank, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Update(BankAccMasterModel bnk)
+        {
+            return Json(repo.EditBank(bnk), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult Edit(int id,string BankName)
+        public JsonResult Delete(int ID)
         {
-            int Id = id;
-            string BN = BankName;
-
-            BankAccMasterModel bnk = new BankAccMasterModel();
-            bnk.BankName = BN;
-            bool Result = repo.EditBank(Id, bnk);
-            if (Result)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-            //return View();
+            return Json("Testing");
+            //return Json(repo.Delete(ID), JsonRequestBehavior.AllowGet);
         }
+
+
+
 
     }
 }

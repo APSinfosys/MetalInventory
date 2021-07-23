@@ -25,23 +25,34 @@ namespace MetalInventory.Controllers
             return View(data);
         }
 
-        public PartialViewResult Create()
+        public ActionResult BankIndex()
         {
-            return PartialView("Create", new InventoryRepository.Masters.BankAccMasterModel());
+            return View();
         }
 
-        [HttpPost]
-        public ActionResult Create(BankAccMasterModel bnk)
+        public JsonResult List()
         {
-            int result = repo.CreateBank(bnk);
-            return View("Index");
+            var data = repo.getAllBanks();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult Add(BankAccMasterModel bnk)
+        {
+            return Json(repo.CreateBank(bnk), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetbyID(int ID)
+        {
+            var bank = repo.getBank(ID);// empDB.ListAll().Find(x => x.EmployeeID.Equals(ID));
+            return Json(bank, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Update(BankAccMasterModel bnk)
+        {
+            return Json(repo.EditBank(bnk), JsonRequestBehavior.AllowGet);
+        }
+        //public JsonResult Delete(int ID)
+        //{
+        //    return Json(empDB.Delete(ID), JsonRequestBehavior.AllowGet);
+        //}
 
-        public PartialViewResult Edit(int id)
-        {
-            var result = repo.getBank(id);
-            return PartialView("Edit", result);
-        }
 
 
     }

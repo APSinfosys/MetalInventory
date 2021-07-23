@@ -1,97 +1,423 @@
-﻿@model IEnumerable<InventoryRepository.Masters.BankAccMasterModel>
+﻿@model  IEnumerable<InventoryRepository.Masters.BankAccMasterModel>
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardVertical.cshtml";
 }
 
-<h2>Index</h2>
+@*<script src="~/Scripts/jquery-1.9.1.js"></script>*@
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+@*<script src="~/Scripts/bootstrap.js"></script>*@
+<script src="~/Scripts/bootstrap.js"></script>
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-    <input type="button" value="Add New" onclick="createPopup()" />
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BankName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Branch)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IFSC)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Holder)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OpeningBal)
-        </th>
-        <th></th>
-    </tr>
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h2 class="mb-0 font-size-22">Bank A/c</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BankName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Branch)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IFSC)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Holder)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OpeningBal)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Master's</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Bank A/c</a></li>
+                </ol>
+            </div>
 
-</table>
-
-<div id="openPopup" style="display:none">
-
+        </div>
+    </div>
 </div>
 
 
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="form-inline row">
+                        <div class="col-sm-9">
+                            <input class="form-control" type="search" placeholder="Search here..." style="width:100%">
+                        </div>
+                        <div class=" col-sm-3">
+
+                            <div class="my-4 text-right">
+                                @*<button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-lg">Add New</button>*@
+                                <button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#myModal"
+                                        @*data-backdrop="false"*@ data-backdrop="static"
+                                        onclick="clearTextBox();">
+                                    Add New Employee
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="d-none d-md-block ">
+                    <div class="table-responsive">
+                        <table class="table table-centered table-nowrap mb-0">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th style="width: 20px;">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Bank Name
+                                    </th>
+                                    <th>
+                                        Holder
+                                    </th>
+                                    <th>
+                                        Address
+                                    </th>
+                                    <th>
+                                        Branch
+                                    </th>
+                                    <th>
+                                        IFSC
+                                    </th>
+                                    <th>
+                                        Opening Bal
+                                    </th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title mt-0" id="myLargeModalLabel">ADD BANK</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    @*aria-label="Close" <span aria-hidden="true">&times;</span>*@
+                    X
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="Id">ID</label>
+                        <input type="text" class="form-control col-12 text-uppercase" id="Id" placeholder="ID" disabled />
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-12">
+                            <label for="BankName">Bank Name</label>
+                            <input type="text" class="form-control text-uppercase" id="BankName" placeholder="BankName" />
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <label for="Holder">Account Holder Name</label>
+                            <input type="text" class="form-control text-uppercase" id="Holder" placeholder="Enter Account Holder Name" />
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control col-12 text-uppercase" id="address" placeholder="Enter Address" />
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-12">
+                            <label for="Branch">Branch</label>
+                            <input type="text" class="form-control text-uppercase" id="Branch" placeholder="Enter Branch" />
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <label for="IFSC">IFSC Code</label>
+                            <input type="text" class="form-control text-uppercase" id="IFSC" placeholder="Enter IFSC Code" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-6 col-md-12">
+                            <label for="OpeningBal">Opening Balance</label>
+                            <input type="text" class="form-control" id="OpeningBal" placeholder="Enter Opening Balance" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="return Update();">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
-    alert("In Script popup")
-    function createPopup() {
-        var x = $("#openPopup");
-        alert("in function")
-        x.load('/Test/Create', function () {
-            x.dialog({
-                show: {
-                    effect: "blind",
-                    duration: 1000
-                },
-                hide: {
-                    effect: "explode",
-                    duration:1000
-                },
-                modal: true,
-                width: 500,
-                height: 500,
-                title: "Add new bank",
-                resizable: false
+$(document).ready(function () {
+        //alert("Loading data");
+        loadData();
+        //alert("Loaded data");
+    });
 
+
+
+    //Load Data function
+    function loadData() {
+    $.ajax({
+        url: "/Test/List",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (result) {
+            var html = '';
+            $.each(result, function (key, item) {
+
+                html += '<tr>';
+                html += '<td><div class="custom-control custom-checkbox" ><input type="checkbox" class="custom-control-input" id="customCheck2"><label class="custom-control-label" for="customCheck2">&nbsp;</label></div></td >';
+                html += '<td> #BNK-' + item.Id + '</td>';
+                html += '<td>' + item.BankName + '</td>';
+                html += '<td>' + item.Holder + '</td>';
+                html += '<td>' + item.address + '</td>';
+                html += '<td>' + item.Branch + '</td>';
+                html += '<td>' + item.IFSC + '</td>';
+                html += '<td>' + item.OpeningBal + '</td>';
+                html += '<td><button type="button" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#myModal" data-backdrop="static" onclick="return getbyID(' + item.Id + '\);">Edit</button></td>';
+
+                html += '</tr>';
             });
+            $('.tbody').html(html);
+        },
+        error: function (errormessage) {
+            alert(errormessage.responseText);
 
+        }
+    });
+}
+
+
+//Add Data Function
+function Add() {
+        var res = validate();
+        if (res == false) {
+            return false;
+        }
+        var bnkObj = {
+            ID: $('#ID').val(),
+            BankName: $('#BankName').val(),
+            Holder: $('#Holder').val(),
+            address: $('#address').val(),
+            Branch: $('#Branch').val(),
+            IFSC: $('#IFSC').val(),
+            OpeningBal: $('#OpeningBal').val()
+        };
+        $.ajax({
+            url: "/Test/Add",
+            data: JSON.stringify(bnkObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                //loadData();
+                $('#myModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+
+
+
+                loadData();
+                // $('#myModal').data-dismiss();
+                // $('#myModal').modal('CLOSE');
+
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
         });
     }
 
+//Function for getting the Data Based upon Employee ID
+function getbyID(Id) {
+        $('#BankName').css('border-color', 'lightgrey');
+        $('#Holder').css('border-color', 'lightgrey');
+        $('#address').css('border-color', 'lightgrey');
+        $('#Branch').css('border-color', 'lightgrey');
+        $('#IFSC').css('border-color', 'lightgrey');
+        $('#OpeningBal').css('border-color', 'lightgrey');
+        $.ajax({
+            url: "/Test/GetbyID/" + Id,
+            typr: "GET",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                //   alert("In Success ");
+                $('#Id').val(result.Id);
+                $('#BankName').val(result.BankName);
+                $('#Holder').val(result.Holder);
+                $('#address').val(result.address);
+                $('#Branch').val(result.Branch);
+                $('#IFSC').val(result.IFSC);
+                $('#OpeningBal').val(result.OpeningBal);
+
+                $('#myModal').modal('show');
+                //$('#myModal').addClass('modal-open');
+                //$('.modal-backdrop').add();
+
+                //                $('#myModal').modal('show');
+                // alert("model show caaled");
+                $('#btnUpdate').show();
+                $('#btnAdd').hide();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+        return false;
+    }
+
+//function for updating employee's record
+function Update() {
+        var res = validate();
+        if (res == false) {
+            return false;
+        }
+        var bnkObj = {
+            Id: $('#Id').val(),
+            BankName: $('#BankName').val(),
+            Holder: $('#Holder').val(),
+            address: $('#address').val(),
+            Branch: $('#Branch').val(),
+            IFSC: $('#IFSC').val(),
+            OpeningBal: $('#OpeningBal').val(),
+        };
+        alert(bnkObj.Id);
+        $.ajax({
+            url: "/Test/Update",
+            data: JSON.stringify(bnkObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                alert("success funtion")
+                loadData();
+                //                $('#myModal').modal('hide');
+                $('#myModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+
+                //$('#myModal').modal({
+                //    show: false,
+                //    backdrop: 'static'
+                //});
+
+                $('#ID').val("");
+                $('#BankName').val("");
+                $('#Holder').val("");
+                $('#address').val("");
+                $('#Branch').val("");
+                $('#IFSC').val("");
+                $('#OpeningBal').val("");
+            },
+            error: function (errormessage) {
+
+                alert("In Error");
+
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+//function for deleting employee's record             Holder address Branch IFSC OpeningBal
+function Delele(ID) {
+        var ans = confirm("Are you sure you want to delete this Record?");
+        if (ans) {
+            $.ajax({
+                url: "/Test/Delete/" + ID,
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    loadData();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    }
+
+//Function for clearing the textboxes
+function clearTextBox() {
+        $('#ID').val("");
+        $('#BankName').val("");
+        $('#Holder').val("");
+        $('#address').val("");
+        $('#IFSC').val("");
+        $('#Branch').val("");
+        $('#OpeningBal').val("");
+        $('#btnUpdate').hide();
+        $('#btnAdd').show();
+        $('#BankName').css('border-color', 'lightgrey');
+        $('#Holder').css('border-color', 'lightgrey');
+        $('#address').css('border-color', 'lightgrey');
+        $('#IFSC').css('border-color', 'lightgrey');
+        $('#Branch').css('border-color', 'lightgrey');
+        $('#OpeningBal').css('border-color', 'lightgrey');
+    }
+//Valdidation using jquery
+function validate() {
+        var isValid = true;
+        if ($('#BankName').val().trim() == "") {
+            $('#BankName').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#BankName').css('border-color', 'lightgrey');
+        }
+        if ($('#Holder').val().trim() == "") {
+            $('#Holder').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#Holder').css('border-color', 'lightgrey');
+        }
+        if ($('#address').val().trim() == "") {
+            $('#address').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#address').css('border-color', 'lightgrey');
+        }
+        if ($('#IFSC').val().trim() == "") {
+            $('#IFSC').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#IFSC').css('border-color', 'lightgrey');
+        }
+        if ($('#Branch').val().trim() == "") {
+            $('#Branch').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#Branch').css('border-color', 'lightgrey');
+        }
+        if ($('#OpeningBal').val().trim() == "") {
+            $('#OpeningBal').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#OpeningBal').css('border-color', 'lightgrey');
+        }
+        return isValid;
+    }
 </script>
+
+
+

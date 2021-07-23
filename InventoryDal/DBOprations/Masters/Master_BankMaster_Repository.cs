@@ -7,14 +7,14 @@ using InventoryRepository.Masters;
 
 namespace InventoryDal.DBOprations.Masters
 {
-   public class Master_BankMaster_Repository
+    public class Master_BankMaster_Repository
     {
         public List<InventoryRepository.Masters.BankAccMasterModel> getAllBanks()
         {
             using (var context = new MetalInventoryEntities())
             {
                 var result = context.Master_BankAccountMaster
-                    .Where(x=> x.freez==0)
+                    .Where(x => x.freez == 0)
                     .Select(x => new InventoryRepository.Masters.BankAccMasterModel()
                     {
                         Id = x.Id,
@@ -24,7 +24,8 @@ namespace InventoryDal.DBOprations.Masters
                         Holder = x.Holder,
                         IFSC = x.IFSC,
                         OpeningBal = x.OpeningBal
-                    }).ToList();
+                    })
+                    .ToList();
 
                 return result;
             }
@@ -32,7 +33,7 @@ namespace InventoryDal.DBOprations.Masters
 
         public int CreateBank(BankAccMasterModel bnk)
         {
-            using(var context = new MetalInventoryEntities())
+            using (var context = new MetalInventoryEntities())
             {
                 Master_BankAccountMaster data = new Master_BankAccountMaster()
                 {
@@ -46,7 +47,7 @@ namespace InventoryDal.DBOprations.Masters
                 };
                 context.Master_BankAccountMaster.Add(data);
                 context.SaveChanges();
-                if(data.Id > 0)
+                if (data.Id > 0)
                 {
                     return data.Id;
                 }
@@ -56,13 +57,13 @@ namespace InventoryDal.DBOprations.Masters
 
         public BankAccMasterModel getBank(int id)
         {
-            using(var context = new MetalInventoryEntities())
+            using (var context = new MetalInventoryEntities())
             {
                 var result = context.Master_BankAccountMaster
                     .Where(x => x.Id == id)
                     .Select(x => new BankAccMasterModel()
                     {
-                        Id= x.Id,
+                        Id = x.Id,
                         BankName = x.BankName,
                         Holder = x.Holder,
                         address = x.address,
@@ -74,23 +75,30 @@ namespace InventoryDal.DBOprations.Masters
             }
         }
 
-        public bool EditBank(int id,BankAccMasterModel bnk)
+        public bool EditBank(BankAccMasterModel bnk)
         {
             using (var context = new MetalInventoryEntities())
             {
-
-                var result = context.BankAccMasterModels.FirstOrDefault(x=> x.Id == id);
-
-                if(result !=null)
+                var result = context.Master_BankAccountMaster.FirstOrDefault(x => x.Id == bnk.Id);
+                if (result != null)
                 {
-                    result.BankName = bnk.BankName;
+                    result.BankName = bnk.BankName.ToUpper();
+                    result.Holder = bnk.Holder.ToUpper();
+                    result.address = bnk.address.ToUpper();
+                    result.Branch = bnk.Branch.ToUpper();
+                    result.IFSC = bnk.IFSC.ToUpper();
+                    result.OpeningBal = bnk.OpeningBal;
+
                     context.SaveChanges();
                     return true;
                 }
-
+                else
+                {
+                    return false;
+                }
 
             }
-            return false;
+
         }
     }
 }

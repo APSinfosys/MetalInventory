@@ -1,19 +1,26 @@
-﻿@model  IEnumerable<InventoryRepository.Masters.BankAccMasterModel>
-@*@model InventoryRepository.Masters.BankAccMasterModel*@
+﻿
 @{
-    ViewBag.Title = "Bank A/C";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_DashboardVertical.cshtml";
 }
+
+
+<script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+@*<script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap."></script>*@
+@*<script src="~/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
 
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h2 class="mb-0 font-size-22">Bank A/c</h2>
+            <h2 class="mb-0 font-size-22">BANK A/C</h2>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Master's</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Bank A/c</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Account</a></li>
                 </ol>
             </div>
 
@@ -21,287 +28,686 @@
     </div>
 </div>
 
-
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
 
-                @*@{*@
-                @Html.Partial("_PartialCreateBank", new InventoryRepository.Masters.BankAccMasterModel())
-                @*; }*@
+                <div class="container-fluid">
+                    <div class="form-inline row">
+                        <div class="col-sm-9">
+                            <input class="form-control" type="search" placeholder="Search here..." style="width:100%">
+                        </div>
+                        <div class=" col-sm-3">
+                            <div class="my-4 text-right">
+                                <button type="button" class="btn" style="color:Highlight;" data-toggle="modal" data-target="#myModal" data-backdrop="static"
+                                        onclick="clearTextBox();">
+                                    <i class="fas fa-plus p-2"></i> <b>Add New</b>
+                                </button>
+                            </div>
+                            <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title mt-0" id="myLargeModalLabel">ADD BANK</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <form class="mx-3">
+                                                <div class="form-group row pb-2 pt-2">
+                                                    <input type="text" class="form-control col-3 text-uppercase" placeholder="Id" id="Id" disabled>
+                                                </div>
+                                                <div class="form-group row pb-2 pt-2">
+                                                    <input type="text" class="form-control col-12 text-uppercase" placeholder="Enter Bank Name" id="BankName">
+                                                </div>
+                                                <div class="form-group row pb-2">
+                                                    <input type="text" class="form-control col-12 text-uppercase" placeholder="Enter Holder Name" id="Holder">
+                                                </div>
+                                                <div class="form-group row pb-2">
+                                                    <textarea class="form-control col-lg-7 col-md-12 col-sm-12 text-uppercase" rows="4" placeholder="Bank Address" id="address"></textarea>
+                                                    <div class="col-lg-1 d-md-block d-sm-none"></div>
+                                                    <div class="row d-md-none d-sm-block d-block pb-2"></div>
+                                                    <div class="col-lg-4 col-md-12 col-sm-12 ">
+                                                        <div class="row">
+                                                            <input type="text" class="form-control col-12 mb-1 text-uppercase" style="width:100%" placeholder="Enter Branch" id="Branch">
+                                                        </div>
+                                                        <div class="row">
+                                                            <input type="text" class="form-control col-12 mt-2 text-uppercase" style="width:100%" placeholder="Enter IFSC Code" id="IFSC">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row pb-2">
+                                                    <input type="text" class="form-control col-lg-7 col-md-6 col-sm-12 mt-sm-2 text-uppercase" placeholder="Enter Opening Balance" id="OpeningBal">
+                                                </div>
+                                                <div class="row pb-1">
+                                                    <button type="button" class="btn btn-primary" id="btnAdd" onclick="Add();">Add</button>
+                                                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="return Update();">Update</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    @*<div class="col-7"></div>
+                                                        <div class="col-2">
+                                                            <button type="submit" class="btn btn-primary w-md">Submit</button>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <button type="button" class="btn btn-danger w-md" data-dismiss="modal" aria-label="Close">Cancle</button>
+                                                        </div>
+                                                        <div class="col-1"></div>*@
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
                 <div class="d-none d-md-block ">
                     <div class="table-responsive">
-
                         <table class="table table-centered table-nowrap mb-0">
                             <thead class="thead-light">
                                 <tr>
-                                    <th style="width: 20px;">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">&nbsp;</label>
-                                        </div>
+                                    @*<th style="width: 20px;">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                <label class="custom-control-label" for="customCheck1">&nbsp;</label>
+                                            </div>
+                                        </th>*@
+                                    <th>
+                                        ID
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.BankName)
+                                        Bank Name
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Branch)
+                                        Holder
+                                    </th>
+                                    <th style="display:none">
+                                        Address
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.address)
+                                        Branch
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.IFSC)
+                                        IFSC
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Holder)
+                                        Opening Bal
                                     </th>
-
-                                    <th></th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @if (Model != null)
-                                {
-                                    foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                    <label class="custom-control-label" for="customCheck2">&nbsp;</label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.BankName)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Branch)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.address)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.IFSC)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Holder)
-                                            </td>
-                                            <td>
-
-                                                <a href="javascript:void(0);" id="Edit" onclick="Edit(@item.Id)">EDIT</a>
-
-                                                @*<a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Details</a>
-                                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                                    @Html.ActionLink("Move", "Edit", "Bank", new { id = item.Id}, new { @class = "move-modal" })*@
-                                            </td>
-                                        </tr>
-                                    }
-                                }
+                            <tbody class="tbody">
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+            <!-- end table-responsive -->
+            <div class="d-sm-block d-md-none">
+                <div class="row customBlock">
 
-<div id='myModal' class='modal'>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div id='myModalContent'>
-                
-                <form class="mx-3" method="post" action="../Bank/Edit">
-                    <div class="form-group row pb-2 pt-2">
-                        <input type="text" class="form-control col-12 text-uppercase" id="bankName" />
-                        @*@Html.EditorFor(model => model.BankName, new { htmlAttributes = new { @class = "form-control col-12 text-uppercase", @placeholder = "Enter bank name" } })
-                            @Html.ValidationMessageFor(model => model.BankName, "", new { @class = "text-danger" })*@
-                    </div>
-                    @*<div class="form-group row pb-2 pt-2">
-                        @Html.EditorFor(model => model.Holder, new { htmlAttributes = new { @class = "form-control col-12 text-uppercase", @placeholder = "Enter holder name" } })
-                        @Html.ValidationMessageFor(model => model.Holder, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group row pb-2 pt-2">
-                        @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control col-12 text-uppercase", @placeholder = "Enter address" } })
-                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group row pb-2 pt-2">
-                        @Html.EditorFor(model => model.Branch, new { htmlAttributes = new { @class = "form-control col-lg-6 col-md-12 text-uppercase", @placeholder = "Enter branch name" } })
-                        @Html.ValidationMessageFor(model => model.Branch, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-                        <div class="col-lg-1 d-lg-block d-md-none"></div>
-                        @Html.EditorFor(model => model.IFSC, new { htmlAttributes = new { @class = "form-control col-lg-5 col-md-12 text-uppercase", @placeholder = "Enter IFSC code" } })
-                        @Html.ValidationMessageFor(model => model.IFSC, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group row pb-2 pt-2">
-                        @Html.EditorFor(model => model.OpeningBal, new { htmlAttributes = new { @class = "form-control col-6 text-uppercase", @placeholder = "Enter opening balance" } })
-                        @Html.ValidationMessageFor(model => model.OpeningBal, "", new { @class = "text-danger" })
-                    </div>*@
-                    <div class="row pb-1 flex-md-row">
-                        <div class="col-7"></div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-primary w-md" onclick="Submit()">Create</button>
-                        </div>
-                        <div class="col-2">
-                            <button type="button" class="btn btn-danger w-md" data-dismiss="modal" aria-label="Close">Cancle</button>
-                        </div>
-                        <div class="col-1"></div>
-                    </div>
-                </form>
+            <div class="ml-2">
+                <b class="navDisp"></b> 
+                <b class="ml-1">Page Size</b><input type="text" id="PageSizeCount" class="ml-1 pl-2" style="width:40px" value="10" onchange="loadData()"/>
+                <nav>
+                    <ul class="pagination">
+                    </ul>
+                </nav>
             </div>
         </div>
-
     </div>
 </div>
 
 
+<script src="~/assets/libs/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadData();
+    });
 
+    function loadData(currentPage, pageSize) {
 
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script>
+        var currentPage = currentPage || 1;   // default currentPage is 1
+        var pageSize = $("#PageSizeCount").val() || 10;     //default pageSize is 10
+        $.ajax({
+            url: "/Bank/List",
+            type: "GET",
+            data: { currentPage: currentPage, pageSize: pageSize },
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var total = "";
+                var pagination = "";
+                if (result.totalPage > 1) {
+                       // the string to represent the pagination
+                    total += 'Page No ' + currentPage + ' Out of  ' + result.totalPage + ' |'
+                    if (currentPage != 1) { // if is the first page , not show the previous link
+                        //href="/Bank/List' + (parseInt(currentPage) - 1) + '"
+                        pagination += '<li class="page-item "><a class="page-link"  onClick= "loadData(' + (parseInt(currentPage) - 1) + ')" tabindex = "-1"  > Previous</a ></li >'
+                    }
+                    for (var i = 1; i <= result.totalPage; i++) {
+                        // splice pagination data of page 1,2,3,4,5...href="/Bank/List' + (i == currentPage ? "javascript:;" : i) + '"
+                        pagination += ' <li class="page-item  ' + (i == currentPage ? 'active' : '') + '"><a class="page-link " onClick="loadData(' + (i == currentPage ? +"javascript:;" : i) + ')" >' + i + '</a></li>';
 
-    function Edit(id) {
+                    }
 
-        $.ajax(
-            {
-                url: "../Bank/Edit",
-                method: "GET",
-                contentType: "application/json; charset=utf-8",
-                data: { "id": id },
-                datatype: "json",
-                success: function (d) {
-
-                    var BN = JSON.parse(d);
-                    console.log(d);
-                    alert(BN.BankName);
-                    $('#myModal').modal('show');
-                    $('#bankName').val(BN.BankName);
-                },
-                error: function (err) {
-                    alert("In error method")
-                    alert(d)
-                    console.log(err);
+                    if (currentPage != result.totalPage) {  // if is the last page, not show the next link
+                        // href = "/Bank/List' + (parseInt(currentPage) + 1) + '"
+                        pagination += ' <li class="page-item"><a class="page-link" onclick="loadData(' + (parseInt(currentPage) + 1) + ')"  > Next</a ></li >'
+                    }
+                    
                 }
 
-            }
-        );
-    }
+                $(".pagination").html(pagination);
+                $(".navDisp").html(total);
 
-    function Submit() {
-        alert("IN SUBMIT");
-        $.ajax({
+                var html = '';
+                var card = '';
+                $.each(result.Data, function (key, item) {
 
-            url: "../Bank/Edit",
-            method: "POST",
-            //data: { "id": $('#id').val, "BankName": $('#bankName').val },
-            data: { "id": 1, "BankName": "DEMO UPDATE" },
-            success: function (d) {
-                alert("Data submited");
-                return "../Bank/Index";
+                    html += '<tr>';
+                    //html += '<td><div class="custom-control custom-checkbox" ><input type="checkbox" class="custom-control-input" id="customCheck2"><label class="custom-control-label" for="customCheck2">&nbsp;</label></div></td >';
+                    html += '<td> #BNK-' + item.Id + '</td>';
+                    html += '<td>' + item.BankName + '</td>';
+                    html += '<td>' + item.Holder + '</td>';
+                    html += '<td style="display:none">' + item.address + '</td>';
+                    html += '<td>' + item.Branch + '</td>';
+                    html += '<td>' + item.IFSC + '</td>';
+                    html += '<td>' + item.OpeningBal + '</td>';
+                    //btn - primary waves - effect waves - light
+                    html += '<td><button type="button" class="btn" data-toggle="modal" data-target="#myModal" data-backdrop="static" title="Edit Record" onclick="return getbyID(' + item.Id + '\);"><i class="fas fa-pencil-alt" style="color:blue" aria-hidden="true"></i></button>|' +
+                        '<button type="button" class="btn" title="Delete Record" onclick="return Delele(' + item.Id + '\);"><i class="fa fa-trash" style="color:red" aria-hidden="true"></i></button>' +
+                        '</td > ';
+
+                    html += '</tr>';
+
+                    card += '<div class="col-md-4 col-sm-6 col-xs-12 ">' +
+                        '<div class="card overflow-hidden">' +
+                        '<div class="bg-soft-primary">' +
+                        '<div class="row">' +
+                        '<div class="col-12">' +
+                        '<div class="text-primary pt-3 pl-3">' +
+                        '<p>#BNK-' + item.Id + '</p >' +
+                        '<h4 class="text-primary text-capitalize">' + item.Holder + '</h4>' +
+                        '</div>' +
+                        '</div >' +
+                        '</div >' +
+                        '<div class="row">' +
+                        '<div class="col-7">' +
+                        '<div class="text-primary p-2">' +
+                        '<b class="text-uppercase">' + item.OpeningBal + '</b ><br />' +
+                        '<b class="text-capitalize">' + item.BankName + '</b><br />' +
+                        '<b>A/c No: 5262</b>' +
+                        '<p class="text-uppercase"><b>IFSC :' + item.IFSC + '</b > </p >' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-5 align-self-end">' +
+                        '<img src="assets/images/profile-img.png" alt="" class="img-fluid">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+
+
+                });
+                $('.tbody').html(html);
+                $('.customBlock').html(card);
+                $(".pagination li").not(".active").find("a").click(function () {
+                    // bind click event to every a link except the current link
+                    var currentPage = $(this).attr("href"); // get the page stored in the a link's href attribute
+                    var pageSize = 10;     // default pageSize
+                    getPageData(currentPage, pageSize);    // recall the function to send an ajax request
+                    return false;   // return false to prevent refresh the page
+                })
             },
-            error: function (err) {
-                alert("Something went wrong");
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+
             }
         });
     }
 
-            //$(function () {
-            //            //$('.move-modal').click(function () {
-            //            //    event.preventDefault();
-            //            //    $('<div/>').appendTo('body').dialog({
-            //            //        close: function (event, ui) {
-            //            //            dialog.remove();
-            //            //        },
-            //            //        modal: true
-            //            //    }).load(this.href);
-            //            //});
+    function Add() {
+        var res = validate();
+        if (res == false) {
+            return false;
+        }
 
-            //            alert("In fuction ");
-            //            $(".move-modal").click(function () {
-            //                //debugger;
-            //                event.preventDefault();
-            //                alert("In fuction button click");
-            //                var $buttonClicked = $(this);
-            //                var id = $buttonClicked.attr('id');
-            //                alert("Id is " + id);
-            //                var options = { "backdrop": "static", keyboard: true };
-            //                $.ajax({
-            //                    type: "GET",
-            //                    url: TeamDetailPostBackURL,
-            //                    contentType: "application/json; charset=utf-8",
-            //                    data: { "id": id },
-            //                    datatype: "json",
-            //                    success: function (data) {
-            //                        debugger;
-            //                        alert(data);
-            //                        $('#myModalContent').html(data);
-            //                        $('#myModal').modal(options);
-            //                        $('#myModal').modal('show');
+        var bnkObj = {
+            Id: $('#Id').val(),
+            BankName: $('#BankName').val(),
+            Holder: $('#Holder').val(),
+            address: $('#address').val(),
+            Branch: $('#Branch').val(),
+            IFSC: $('#IFSC').val(),
+            OpeningBal: $('#OpeningBal').val()
+        };
+        $.ajax({
+            url: "/Bank/Add",
+            data: JSON.stringify(bnkObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $('#myModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                loadData();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
 
-            //                    },
-            //                    error: function () {
-            //                        alert("Dynamic content load failed.");
-            //                    }
-            //                });
-            //            });
+
+    function getbyID(Id) {
+        $('#BankName').css('border-color', 'lightgrey');
+        $('#Holder').css('border-color', 'lightgrey');
+        $('#address').css('border-color', 'lightgrey');
+        $('#Branch').css('border-color', 'lightgrey');
+        $('#IFSC').css('border-color', 'lightgrey');
+        $('#OpeningBal').css('border-color', 'lightgrey');
+        $.ajax({
+            url: "/Bank/GetbyID/" + Id,
+            typr: "GET",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                //   alert("In Success ");
+                var pid = "#BNK-" + result.Id;
+                $('#Id').val(pid);
+                $('#BankName').val(result.BankName);
+                $('#Holder').val(result.Holder);
+                $('#address').val(result.address);
+                $('#Branch').val(result.Branch);
+                $('#IFSC').val(result.IFSC);
+                $('#OpeningBal').val(result.OpeningBal);
+
+                $('#myModal').modal('show');
+                $('#btnUpdate').show();
+                $('#btnAdd').hide();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+        return false;
+    }
+
+
+    function Update() {
+        var res = validate();
+        if (res == false) {
+            return false;
+        }
+        var l = $('#Id').val();
+        var pid = l.substr(5, l.length);
+        var bnkObj = {
+            Id: pid,
+            BankName: $('#BankName').val(),
+            Holder: $('#Holder').val(),
+            address: $('#address').val(),
+            Branch: $('#Branch').val(),
+            IFSC: $('#IFSC').val(),
+            OpeningBal: $('#OpeningBal').val(),
+        };
+        $.ajax({
+            url: "/Bank/Update",
+            data: JSON.stringify(bnkObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                //                alert("success funtion")
+                loadData();
+                $('#myModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+
+                //$('#ID').val("");
+                //$('#BankName').val("");
+                //$('#Holder').val("");
+                //$('#address').val("");
+                //$('#Branch').val("");
+                //$('#IFSC').val("");
+                //$('#OpeningBal').val("");
+                clearTextBox();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+
+    function Delele(ID) {
+        var ans = confirm("Are you sure you want to delete this Record?");
+        if (ans) {
+            $.ajax({
+                url: "/Bank/Delete/" + ID,
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    loadData();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    }
+
+    //Function for clearing the textboxes
+    function clearTextBox() {
+        $('#Id').val("");
+        $('#BankName').val("");
+        $('#Holder').val("");
+        $('#address').val("");
+        $('#IFSC').val("");
+        $('#Branch').val("");
+        $('#OpeningBal').val("");
+        $('#btnUpdate').hide();
+        $('#btnAdd').show();
+        $('#BankName').css('border-color', 'lightgrey');
+        $('#Holder').css('border-color', 'lightgrey');
+        $('#address').css('border-color', 'lightgrey');
+        $('#IFSC').css('border-color', 'lightgrey');
+        $('#Branch').css('border-color', 'lightgrey');
+        $('#OpeningBal').css('border-color', 'lightgrey');
+    }
+
+
+    function validate() {
+        var isValid = true;
+        if ($('#BankName').val().trim() == "") {
+            $('#BankName').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#BankName').css('border-color', 'lightgrey');
+        }
+        if ($('#Holder').val().trim() == "") {
+            $('#Holder').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#Holder').css('border-color', 'lightgrey');
+        }
+        if ($('#address').val().trim() == "") {
+            $('#address').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#address').css('border-color', 'lightgrey');
+        }
+        if ($('#IFSC').val().trim() == "") {
+            $('#IFSC').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#IFSC').css('border-color', 'lightgrey');
+        }
+        if ($('#Branch').val().trim() == "") {
+            $('#Branch').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#Branch').css('border-color', 'lightgrey');
+        }
+        if ($('#OpeningBal').val().trim() == "" || !$.isNumeric($('#OpeningBal').val())) {
+            $('#OpeningBal').css('border-color', 'Red');
+            isValid = false;
+        }
+        else {
+            $('#OpeningBal').css('border-color', 'lightgrey');
+        }
+        return isValid;
+    }
 </script>
 
 
 
 
 
-@*@section scripts
-    {*@
-@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script>
 
-        $(document).ready(function(){
-        alert("In Script");
-        var TeamDetailPostBackURL = '/Bank/Edit';
-        alert(" Url is " + TeamDetailPostBackURL);
-    //$(function () {
-        $(".anchorDetail").click(function () {
-            //debugger;
-            alert("In fuction");
-            var $buttonClicked = $(this);
-            var id = $buttonClicked.attr('data-id');
-            alert("Id is " + id);
-            var options = { "backdrop": "static", keyboard: true };
-            $.ajax({
-                type: "GET",
-                url: TeamDetailPostBackURL,
-                contentType: "application/json; charset=utf-8",
-                data: { "id": id },
-                datatype: "json",
-                success: function (data) {
-                    debugger;
-                    alert(data);
-                    $('#myModalContent').html(data);
-                    $('#myModal').modal(options);
-                    $('#myModal').modal('show');
 
-                },
-                error: function () {
-                    alert("Dynamic content load failed.");
-                }
-            });
-        });
-        //$("#closebtn").on('click',function(){
-        //    $('#myModal').modal('hide');
 
-        $("#closbtn").click(function () {
-            $('#myModal').modal('hide');
-        });
-    });*@
+@*<div class="col-md-4 col-sm-6 col-xs-12 ">
+        <div class="card overflow-hidden">
+            <div class="bg-soft-primary">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-primary pt-3 pl-3">
+                            <p>#SK2540</p>
+                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-2">
+                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                            <b class="text-capitalize">bank of maharashtra</b><br />
+                            <b>A/c No: 5262</b>
+                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
 
-@*</script>*@
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-@*}*@
+    <div class="col-md-4 col-sm-6 col-xs-12 ">
+        <div class="card overflow-hidden">
+            <div class="bg-soft-primary">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-primary pt-3 pl-3">
+                            <p>#SK2540</p>
+                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-2">
+                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                            <b class="text-capitalize">bank of maharashtra</b><br />
+                            <b>A/c No: 5262</b>
+                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
 
-<!-- end table-responsive -->
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12 ">
+        <div class="card overflow-hidden">
+            <div class="bg-soft-primary">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-primary pt-3 pl-3">
+                            <p>#SK2540</p>
+                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-2">
+                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                            <b class="text-capitalize">bank of maharashtra</b><br />
+                            <b>A/c No: 5262</b>
+                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12 ">
+        <div class="card overflow-hidden">
+            <div class="bg-soft-primary">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-primary pt-3 pl-3">
+                            <p>#SK2540</p>
+                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-2">
+                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                            <b class="text-capitalize">bank of maharashtra</b><br />
+                            <b>A/c No: 5262</b>
+                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12 ">
+        <div class="card overflow-hidden">
+            <div class="bg-soft-primary">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-primary pt-3 pl-3">
+                            <p>#SK2540</p>
+                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-2">
+                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                            <b class="text-capitalize">bank of maharashtra</b><br />
+                            <b>A/c No: 5262</b>
+                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12 ">
+        <div class="card overflow-hidden">
+            <div class="bg-soft-primary">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-primary pt-3 pl-3">
+                            <p>#SK2540</p>
+                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-2">
+                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                            <b class="text-capitalize">bank of maharashtra</b><br />
+                            <b>A/c No: 5262</b>
+                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12 ">
+        <div class="card overflow-hidden">
+            <div class="bg-soft-primary">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-primary pt-3 pl-3">
+                            <p>#SK2540</p>
+                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-2">
+                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                            <b class="text-capitalize">bank of maharashtra</b><br />
+                            <b>A/c No: 5262</b>
+                            <p class="text-uppercase"><b>IFSC : icic000143</b> </p>
+
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-xs-12 ">
+        <div class="card overflow-hidden">
+            <div class="bg-soft-primary">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-primary pt-3 pl-3">
+                            <p>#SK2540</p>
+                            <h4 class="text-primary text-capitalize">bit's & byte's Solution pvt. ltd.</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <div class="text-primary p-2">
+                            <b class="text-uppercase">27bslpg7111g1lp</b><br />
+                            <b class="text-capitalize">bank of maharashtra</b><br />
+
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-end">
+                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@

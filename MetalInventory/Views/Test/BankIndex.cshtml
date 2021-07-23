@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewBag.Title = "BankIndex";
+    Layout = "~/Views/Shared/_DashboardVertical.cshtml";
+}
+
+
+@*<script src="~/Scripts/jquery-1.9.1.js"></script>*@
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+@*<script src="~/Scripts/bootstrap.js"></script>*@
+<script src="~/Scripts/bootstrap.js"></script>
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h2 class="mb-0 font-size-22">Bank A/c</h2>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Master's</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Bank A/c</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add New Employee</button><br /><br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Bank Name
+                </th>
+                <th>
+                    Holder
+                </th>
+                <th>
+                    Branch
+                </th>
+                <th>
+                    IFSC
+                </th>
+                <th>
+                    Opening Balance
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">Add Employee</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="Id">ID</label>
+                        <input type="text" class="form-control" id="Id" placeholder="Id" disabled="disabled" />
+                    </div>
+                    <div class="form-group">
+                        <label for="BankName">Bank Name</label>
+                        <input type="text" class="form-control" id="BankName" placeholder="Enter Bank Name" />
+                    </div>
+                    <dv class="form-group">
+                        <label for="Holder">A/c Holder</label>
+                        <input type="text" class="form-control" id="Holder" placeholder="Enter A/c Holder" />
+                    </dv>
+                    <div class="form-group">
+                        <label for="address">Bank Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="Enter Bank Address" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Branch">Branch</label>
+                        <input type="text" class="form-control" id="Branch" placeholder="Enter Branch" />
+                    </div>
+                    <div class="form-group">
+                        <label for="IFSC">IFSC Code</label>
+                        <input type="text" class="form-control" id="IFSC" placeholder="Enter IFSC Code" />
+                    </div>
+                    <div class="form-group">
+                        <label for="OpeningBal">Opening Balance</label>
+                        <input type="text" class="form-control" id="OpeningBal" placeholder="Enter Opeing Balance" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        alert("Loading data");
+        loadData();
+        alert("Loaded data");
+    });
+
+    //Load Data function
+    function loadData() {
+        $.ajax({
+            url: "/Test/List",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                $.each(result, function (key, item) {
+                    alert(item.Id)
+                    html += '<tr>';
+                    html += '<td>' + item.Id + '</td>';
+                    html += '<td>' + item.BankName + '</td>';
+                    html += '<td>' + item.Holder + '</td>';
+                    html += '<td>' + item.address + '</td>';
+                    html += '<td>' + item.Branch + '</td>';
+                    html += '<td>' + item.IFSC + '</td>';
+                    html += '<td>' + item.OpeningBal + '</td>';
+                    html += '<td><a href="#" onclick="return getbyID(' + item.Id + ')">Edit</a> | <a href="#" onclick="Delele(' + item.Id + ')">Delete</a></td>';
+                    html += '</tr>';
+                });
+                $('.tbody').html(html);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+
+            }
+        });
+    }
+
+
+    //Add Data Function
+    function Add() {
+        var res = validate();
+        if (res == false) {
+            return false;
+
+        }
+        var empObj = {
+            Id: $('#Id').val(),
+            BankName: $('#BankName').val(),
+            Holder: $('#Holder').val(),
+            address: $('#address').val(),
+            Branch: $('#Branch').val(),
+            IFSC: $('#IFSC').val(),
+            OpeningBal: $('#OpeningBal').val()
+        };
+        $.ajax({
+            url: "/Test/Add",
+            data: JSON.stringify(empObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                loadData();
+                $('#myModal').modal('hide');
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+59.	    });
+    }
+
+
+</script>

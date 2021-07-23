@@ -86,3 +86,7 @@ E:\MVC\Sagar Khot\MetalInventory\obj\Debug\MetalInventory.csproj.CoreCompileInpu
 E:\MVC\Sagar Khot\MetalInventory\obj\Debug\MetalInventory.csproj.CopyComplete
 E:\MVC\Sagar Khot\MetalInventory\obj\Debug\MetalInventory.dll
 E:\MVC\Sagar Khot\MetalInventory\obj\Debug\MetalInventory.pdb
+E:\MVC\Sagar Khot\MetalInventory\bin\PagedList.dll
+E:\MVC\Sagar Khot\MetalInventory\bin\PagedList.Mvc.dll
+E:\MVC\Sagar Khot\MetalInventory\bin\PagedList.xml
+E:\MVC\Sagar Khot\MetalInventory\bin\PagedList.Mvc.xml
